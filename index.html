@@ -363,8 +363,8 @@ function draw(){
 function ovTxt(){$('#ot').textContent=T(ovState?'g_over':'g_t');$('#os').textContent=ovState?T('g_sc')+': '+score:'';$('#st').textContent=T(ovState?'g_again':'g_start')}
 function step(){
   if(paused)return;
-  dir=nd;const h=[snake[0][0]+vec[dir][0],snake[0][1]+vec[dir][1]];
-  if(h[0]<0||h[1]<0||h[0]>=N||h[1]>=N||snake.some(s=>s[0]===h[0]&&s[1]===h[1]))return end();
+  dir=nd;const h=[(snake[0][0]+vec[dir][0]+N)%N,(snake[0][1]+vec[dir][1]+N)%N];
+  if(snake.some(s=>s[0]===h[0]&&s[1]===h[1]))return end();
   snake.unshift(h);
   if(h[0]===food[0]&&h[1]===food[1]){score++;$('#sc').textContent=score;place();clearInterval(timer);timer=setInterval(step,Math.max(70,140-score*3))}
   else snake.pop();
